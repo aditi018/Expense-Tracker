@@ -1,29 +1,38 @@
-import React from 'react'
+import React ,{useState} from 'react'
 import styled from 'styled-components';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useGlobalContext } from '../../context/globalContext';
+import Button from '../Button/Button';
+import {plus} from "../../utils/icons";
 
 function Form() {
 
-    const {addIncome} = useGlobalContext();
+    const {addIncome,getIncome} = useGlobalContext();
     const [inputState,setInputState] = useState({
         title:'',
         amount : '',
         category : '',
         description : '',
-        date :'',
+        date :'' ,
     });
 
-    const { title,amount,description,date,category } = inputState;
+    const { title,amount,category,description,date } = inputState;
 
-    const handleInput = (name) => e => {
+    const handleInput = name => e => {
         setInputState({...inputState, [name] : e.target.value});
     }
 
     const handleSubmit = e => {
         e.preventDefault();
         addIncome(inputState);
+        setInputState({
+            title :'',
+            amount :'',
+            date :'',
+            category:'',
+            description :'',
+        })
     }
 
   return (
@@ -45,12 +54,10 @@ function Form() {
                 onChange={handleInput('amount')}/>
         </div>
         <div className='input-control'>
-            <input 
-                type="text" 
-                value={description}
-                name={'description'}
-                placeholder='Salary Description'
-                onChange={handleInput('description')}/>
+            <textarea name="description" 
+            value={description} 
+            placeholder = "Add a reference" 
+            id="description" cols="30" rows= "4" onChange={handleInput('description')} />
         </div>
         <div className='input-control'>
             <select required 
@@ -68,15 +75,20 @@ function Form() {
                     <option value="other">Other</option>  
             </select>
         </div>
-        <div className='submit-btn'>
-            <button>Add Income</button>
-        </div>
         <div className='input-control'>
             <DatePicker id='date' placeholderText='Enter a Date' selected={date}
-            dateFormat="dd/MM/YY"
+            dateFormat="dd/MM/yyyy"
             onChange={(date)=>{
                 setInputState({...inputState,date : date});
             }} />
+        </div>
+        <div className='submit-btn'>
+            <Button name=" Add Income" 
+            icon = {plus}
+            bpad ={ '0.8rem 1.6rem' }
+            bRad={'30px'}
+            bg={'var(--color-accent'}
+            color={'#fff'}/>
         </div>
     </FormStyled>
   )

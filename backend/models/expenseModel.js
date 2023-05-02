@@ -14,7 +14,7 @@ const ExpenseSchema = new mongoose.Schema({
     },
     type:{
         type:String,
-        trim:true,
+        deafult: "Expense",
     },
     description:{
         type:String,

@@ -8,7 +8,7 @@ const globalContext =  React.createContext();
 
 export const GlobalProvider = ({children}) => {
 
-    const [income , setIncome ] = useState([]);
+    const [incomes , setIncome ] = useState([]);
     const [expense, setExpense ] = useState([]);
     const [error, setError ] = useState(null);
 
@@ -17,10 +17,17 @@ export const GlobalProvider = ({children}) => {
         .catch((err)=>{
             setError(err.response.data.message);
         })
+        getIncome();
+    }
+
+    const getIncome = async() => {
+        const response = await axios.get(`${BASE_URL}get_incomes`);
+        setIncome(response.data);
+        
     }
 
     return(
-        <globalContext.Provider value={{addIncome}}>
+        <globalContext.Provider value={{addIncome , getIncome , incomes}}>
             {children}
         </globalContext.Provider>
     )
