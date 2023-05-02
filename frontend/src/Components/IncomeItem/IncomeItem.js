@@ -62,7 +62,7 @@ function IncomeItem({id,title,amount,date,description,category,deleteItem,indica
             <h5>{title}</h5>
             <div className='inner-content'>
                 <div className='text'>
-                    <p>{dollar} 45</p>
+                    <p>{dollar} {amount}</p>
                     <p>{calender} {date}</p>
                     <p>{comment} {description}</p>
                 </div>
@@ -70,10 +70,13 @@ function IncomeItem({id,title,amount,date,description,category,deleteItem,indica
                     <Button icon={trash}
                     bpad={'1rem'}
                     bRad={'50%'}
-                    bg={'var(--primary-green)'}
+                    bg={'var(--primary-color)'}
                     color={'#fff'}
                     iColor = {'#fff'}
                     hColor={'var(--color-green)'}
+                    onClick = {()=>{
+                        deleteItem(id)
+                    }}
                     />
                 </div>
             </div>
