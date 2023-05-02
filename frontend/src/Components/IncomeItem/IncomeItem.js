@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { calender, dollar,comment,trash, money, freelance, stocks, users, bitcoin, card, yt, piggy, book, food, medical, tv, takeaway, clothing, circle } from '../../utils/icons';
 import Button from '../Button/Button';
+import { dateFormat } from '../../utils/dateformat';
 
 function IncomeItem({id,title,amount,date,description,category,deleteItem,indicatorColor,type}) {
 
@@ -51,19 +52,19 @@ function IncomeItem({id,title,amount,date,description,category,deleteItem,indica
                 return ''
         }
     }
-
+    console.log("type" , type);
 
   return (
     <IncomeStyled indicator={indicatorColor}>
         <div className='icon'>
-            {type == 'Expense' ? expenseCatIcon() : categoryIcon()}
+            {type === 'Income' ? categoryIcon() : expenseCatIcon()}
         </div>
         <div className='content'>
             <h5>{title}</h5>
             <div className='inner-content'>
                 <div className='text'>
                     <p>{dollar} {amount}</p>
-                    <p>{calender} {date}</p>
+                    <p>{calender} {dateFormat(date)}</p>
                     <p>{comment} {description}</p>
                 </div>
                 <div className='btn-con'>
